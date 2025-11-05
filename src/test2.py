@@ -5,19 +5,23 @@ class Test(Scene):
         circle = Circle(radius=2).set_color(WHITE)\
             .shift(UP)
         F = Dot(circle.get_center())
-        FP = Line(F,
-            [F.get_x(), F.get_y()+circle.radius, 0])
         
-        FC = Line(F,
-            [F.get_x(), F.get_y()-circle.radius, 0])
-        FB = Line(F,
-            [F.get_x()-1.5, F.get_y()-circle.radius+0.7, 0])
-        FG = Line(F,
-            [F.get_x()-0.7, F.get_y()-circle.radius+0.3, 0])
-        FH = Line(F,
-            [F.get_x()+0.7, F.get_y()-circle.radius+0.3, 0])
-        FE = Line(F,
-            [F.get_x()+1.5, F.get_y()-circle.radius+0.7, 0])
+        P = Dot([F.get_x(), F.get_y()+circle.radius, 0])
+        C = Dot([F.get_x(), F.get_y()-circle.radius, 0])
+        
+        B = Dot([F.get_x()-1.6, F.get_y()-circle.radius+0.8, 0], radius=0.1).set_color(RED)
+        G = Dot([F.get_x()-0.8, F.get_y()-circle.radius+0.4, 0], radius=0.1).set_color(RED)
+        H = Dot([F.get_x()+0.8, F.get_y()-circle.radius+0.4, 0], radius=0.1).set_color(RED)
+        E = Dot([F.get_x()+1.6, F.get_y()-circle.radius+0.8, 0], radius=0.1).set_color(RED)
+        
+        
+        
+        FP = Line(F, P)
+        FC = Line(F, C)
+        FB = Line(F, B)
+        FG = Line(F, G)
+        FH = Line(F, H)
+        FE = Line(F, E)
         
         BC = Line(FB.get_end(), FC.get_end())
         EC = Line(FE.get_end(), FC.get_end())
