@@ -8,9 +8,12 @@ class Frame5(Scene):
         legenda_observer = Tex("Osservatori", color=YELLOW)\
             .next_to(legenda_comet, DOWN)\
             .align_to(legenda_comet, RIGHT)
-        legenda_distance = Tex("Parallasse corretta", color=PINK)\
-            .next_to(legenda_observer, DOWN)\
-            .align_to(legenda_observer, RIGHT)
+        # legenda_distance_EG = Tex("Parallasse", color=GREEN)\
+        #     .next_to(legenda_observer, DOWN)\
+        #     .align_to(legenda_observer, RIGHT)
+        # legenda_distance_EK = Tex("Parallasse", color=GREEN)\
+        #     .next_to(legenda_observer, DOWN)\
+        #     .align_to(legenda_observer, RIGHT)
         
         # MAIN STRUCTURE
         axes = Axes(
@@ -34,29 +37,30 @@ class Frame5(Scene):
         )       
         
         # OBSERVER COMPONENTS
-        observer_point_1 = Dot(observer_arc.get_end())\
+        observer_point_B = Dot(observer_arc.get_end())\
             .set_color(YELLOW)
-        observer_point_2 = Dot(observer_arc.get_start())\
+        observer_point_C = Dot(observer_arc.get_start())\
             .shift(UP*0.5)\
             .shift(LEFT*0.15)\
             .set_color(YELLOW)
         
         # POINTS
+        comet = Dot(color = RED)\
+            .move_to([bigger_arc.get_center()[0]-0.35, bigger_arc.get_center()[1]+1.2, 0])
         E = Star(outer_radius=0.1).set_color(WHITE)\
             .move_to([bigger_arc.get_end()[0]+0.5, bigger_arc.get_end()[1], 0])
-        K = Star(outer_radius=0.1).set_color(WHITE)\
-            .move_to([bigger_arc.get_center()[0]+0.7, bigger_arc.get_center()[1]+1.25, 0])
-        comet = Dot(color = RED)\
-            .next_to(K, DL)\
-            .shift(LEFT*0.2)
+        G = Dot(radius=0)\
+            .move_to([comet.get_center()[0]+0.25, comet.get_center()[1]+0.65, 0])
+        K = Dot(radius=0)\
+            .move_to([comet.get_center()[0]+0.53, comet.get_center()[1]+0.56, 0])
         
         # DISTANCES
         BK = Line(observer_arc.get_end(),
             K.get_center())
-        CG = Line([observer_arc.get_start()[0]-0.15, observer_arc.get_start()[1]+0.5, 0],
-            [BK.get_end()[0]-0.1, BK.get_end()[1]+0.1, 0])
-        BG = Line(observer_arc.get_end(),
-            CG.get_end())
+        BG = Line(observer_point_B,
+            G.get_center()) 
+        CG = Line(observer_point_C,
+            G.get_center())
         
         # LABEL
         A_label = Tex("A")\
@@ -69,19 +73,18 @@ class Frame5(Scene):
         D_label = Tex("D")\
             .next_to(bigger_arc.get_end(), LEFT)
         E_label = Tex("E")\
-            .next_to(E, UR)
+            .next_to(E, UP)
         H_label = Tex("H")\
             .next_to(comet, DOWN)
         K_label = Tex("K")\
-            .next_to(K, UR*0.3)
+            .next_to(K, UR*0.4)
         G_label = Tex("G")\
-            .next_to(BG.get_end(), UR*0.5)
-
-
+            .next_to(G, UP*0.9)\
+            .shift(RIGHT*0.1)
 
         # ANIMATIONS
-        self.play(Write(legenda_comet), Write(legenda_observer), Write(legenda_distance))
+        self.play(Write(legenda_comet), Write(legenda_observer))
         
-        self.play(FadeIn(axes, bigger_arc, smaller_arc, observer_arc, BG, E, K, CG, BK, comet, A_label, B_label, C_label, D_label, E_label, H_label, K_label, G_label, observer_point_1, observer_point_2))
+        self.play(FadeIn(axes, bigger_arc, smaller_arc, observer_arc, BG, E, K, CG, BK, comet, A_label, B_label, C_label, D_label, E_label, H_label, K_label, G_label, observer_point_B, observer_point_C))
         
         self.wait(2)

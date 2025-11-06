@@ -49,7 +49,7 @@ class Frame2(Scene):
 
         # POINTS LABELS
         E_star1 = Star(outer_radius=0.1).set_color(WHITE)\
-            .move_to([bigger_arc1.get_end()[0]+0.5, bigger_arc1.get_end()[1] - 0.03, 0])
+            .move_to([bigger_arc1.get_end()[0]+0.5, bigger_arc1.get_end()[1] - 0.05, 0])
         E_label1 = Tex("E")\
             .next_to(E_star1, UP)
         F_label1 = Tex("F")\

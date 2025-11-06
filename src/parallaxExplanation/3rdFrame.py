@@ -8,7 +8,8 @@ class Frame3(Scene):
         legenda_observer = Tex("Osservatore", color=YELLOW)\
             .next_to(legenda_comet, DOWN)\
             .align_to(legenda_comet, RIGHT)
-        legenda_distanza = Tex("Distanza da stella", color=GREEN)\
+        legenda_distanza = Tex("Possibile\\\\parallasse corretta", color=GREEN,
+                               tex_environment="flushright")\
             .next_to(legenda_observer, DOWN)\
             .align_to(legenda_observer, RIGHT)
         

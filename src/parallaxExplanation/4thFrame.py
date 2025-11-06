@@ -8,7 +8,8 @@ class Frame4(Scene):
         legenda_observer = Tex("Osservatore", color=YELLOW)\
             .next_to(legenda_comet, DOWN)\
             .align_to(legenda_comet, RIGHT)
-        legenda_parallax = Tex("Parallasse corretta", color=PINK)\
+        legenda_parallax = Tex("Possibile\\\\parallasse corretta", color=PINK,
+                               tex_environment="flushright")\
             .next_to(legenda_observer, DOWN)\
             .align_to(legenda_observer, RIGHT)
             
