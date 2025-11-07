@@ -14,15 +14,9 @@ class Frase1(Scene):
         
 class Frase2(Scene):
     def construct(self):
-        frase = Tex("TANSILLO:\n \"Da questo, che ti dirò adesso.\n"+
-                    "Essendo l'intelletto divenuto all'apprension d'una certa e definita forma intelligibile,\n"+
-                    "l'intelletto non si ferma là.\n"+
-                    "Perché sempre vede che quel tutto che possiede, è cosa misurata,\n"+
-                    "e perciò non può essere bastante per sé, non buono da per sé, non bello da per sé;\n"+
-                    "perché non è l'universo, non è l'ente absoluto,\n"+
-                    "ma contratto ad esser questa natura, ad esser questa specie, questa forma.\n"+
-                    "Sempre dunque l’intelletto fa progresso verso quello che è veramente bello,\n"+
-                    "che non ha margine e circonscrizione alcuna.\"",
+        frase = Tex("Quello che è veramente bello,\\\\"+
+                    "che non ha margine e circonscrizione alcuna”,\\\\" +
+                    "è l’infinito",
                     font_size=35)
 
         frase.move_to(ORIGIN)
