@@ -3,25 +3,29 @@ from manim import *
 class Test(Scene):
     def construct(self):
         circle = Circle(radius=2).set_color(WHITE)\
-            .shift(UP)
+            .shift(UP)\
+            .rotate(-90*DEGREES)
         F = Dot(circle.get_center())
         
-        P = Dot([F.get_x(), F.get_y()+circle.radius, 0])
-        C = Dot([F.get_x(), F.get_y()-circle.radius, 0])
+        P = Dot([F.get_x(), F.get_y()+circle.radius+0.1, 0])
+        C = Dot([F.get_x(), F.get_y()-circle.radius-0.1, 0])
         
-        B = Dot([F.get_x()-1.6, F.get_y()-circle.radius+0.8, 0], radius=0.1).set_color(RED)
-        G = Dot([F.get_x()-0.8, F.get_y()-circle.radius+0.4, 0], radius=0.1).set_color(RED)
-        H = Dot([F.get_x()+0.8, F.get_y()-circle.radius+0.4, 0], radius=0.1).set_color(RED)
-        E = Dot([F.get_x()+1.6, F.get_y()-circle.radius+0.8, 0], radius=0.1).set_color(RED)
+        B = always_redraw(lambda: Dot(radius=0.1)\
+            .move_to([C.get_x()-1.55, C.get_y()+0.7, 0]))
+        G = always_redraw(lambda: Dot(radius=0.1)\
+            .move_to([C.get_x()-0.8, C.get_y()+0.35, 0]))
+        H = always_redraw(lambda: Dot(radius=0.1)\
+            .move_to([C.get_x()+0.8, C.get_y()+0.35, 0]))
+        E = always_redraw(lambda: Dot(radius=0.1)\
+            .move_to([C.get_x()+1.55, C.get_y()+0.7, 0]))
         
         
-        
-        FP = Line(F, P)
-        FC = Line(F, C)
-        FB = Line(F, B)
-        FG = Line(F, G)
-        FH = Line(F, H)
-        FE = Line(F, E)
+        FP = always_redraw(lambda: Line(F, P))
+        FC = always_redraw(lambda: Line(F, C))
+        FB = always_redraw(lambda: Line(F, B))
+        FG = always_redraw(lambda: Line(F, G))
+        FH = always_redraw(lambda: Line(F, H))
+        FE = always_redraw(lambda: Line(F, E))
         
         BC = Line(FB.get_end(), FC.get_end())
         EC = Line(FE.get_end(), FC.get_end())
@@ -43,9 +47,14 @@ class Test(Scene):
         MA = Line(M.get_center(),
             [FC.get_end()[0]+0.45, FC.get_end()[1]-0.2, 0])
         
-        self.add(circle, F,
-                 FP, FC, FB, FG, FH, FE,
-                 BC, EC,
-                 M, CM, BM, EM,
-                 IK, CI, CK,
-                 MD, MA)
+        self.play(FadeIn(circle), FadeIn(F),
+                 FadeIn(FP), FadeIn(FC), FadeIn(FB), FadeIn(FG), FadeIn(FH), FadeIn(FE),
+                 FadeIn(BC), FadeIn(EC),
+                 FadeIn(M), FadeIn(CM), FadeIn(BM), FadeIn(EM),
+                 FadeIn(IK), FadeIn(CI), FadeIn(CK),
+                 FadeIn(MD), FadeIn(MA))
+        
+        self.play(MoveAlongPath(C, circle))
+        
+        
+        self.wait(2)
