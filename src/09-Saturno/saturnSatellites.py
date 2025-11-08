@@ -155,8 +155,8 @@ class Satellites(ThreeDScene):
             saturn, saturn_orbit, saturn_orbit_functions[0], saturn_orbit_functions[1], saturn_orbit_functions[2]
         )
 
-        self.play(Transform(satellites_groups, final_satellite_group, replace_mobject_with_target_in_scene=True))
-        self.play(GrowFromEdge(saturn_group, RIGHT))
+        self.play(Transform(satellites_groups, saturn_group, replace_mobject_with_target_in_scene=True))
+        self.play(GrowFromEdge(final_satellite_group, RIGHT))
 
         saturn_sphere = (Sphere(saturn.get_center(), saturn.get_width() / 2,)
             .set_color(YELLOW_A).set_fill(opacity=0.5))

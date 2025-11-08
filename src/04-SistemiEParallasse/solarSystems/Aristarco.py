@@ -1,5 +1,5 @@
 from manim import *
-class SolarSystemGeocentric(Scene):
+class SolarSystemAristarco(Scene):
     def construct(self):
         distance = 0.45
         

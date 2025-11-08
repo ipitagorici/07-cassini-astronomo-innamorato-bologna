@@ -43,39 +43,10 @@ class Frase4(Scene):
         self.play(Write(frase))
         self.wait(2)
 
-class Frase5(Scene):
-    def construct(self):
-        frase = Tex("Dal movimento de l’humor collerico\n"+
-                    "gli animi de gli huomini sono incitati alla vendetta",
-                    font_size=35)
 
-        frase.move_to(ORIGIN)
-        self.play(Write(frase))
-        self.wait(2)
 
-class Frase6(Scene):
-    def construct(self):
-        frase = Tex("Gli  huomini  fuggivano  per  i  boschi, lasciando le case loro,\n"+
-                    "sì come usciti fuori di senno, non si trovava chi avesse cura  de  gli  animali,\n"+
-                    "né  chi  lavorasse  le  terre,  solo  morti  si  vedevano,\n"+
-                    "solo ramarichi, stridi e pianti s’udivano",
-                    font_size=35)
 
-        frase.move_to(ORIGIN)
-        self.play(Write(frase))
-        self.wait(2)
 
-class Frase7(Scene):
-    def construct(self):
-        frase = Tex("Venne un certo liquore nell’aere come fuoco, e parea che la terra ardesse,\n"+
-                    "e stette così per lo spazio del dire di due Paternoster;\n"+
-                    "dietro a questo venne un tempo molto scuro e tenebroso con un tuono grandissimo,\n"+
-                    "il quale durò fermamente per dire di tre Paternoster",
-                    font_size=35)
-
-        frase.move_to(ORIGIN)
-        self.play(Write(frase))
-        self.wait(2)
 
 class Frase8(Scene):
     def construct(self):

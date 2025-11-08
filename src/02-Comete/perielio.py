@@ -1,6 +1,6 @@
 from manim import *
 
-class Test(Scene):
+class Perielio(Scene):
     def construct(self):
         circle = Circle(radius=2).set_color(WHITE)\
             .shift(UP)\
@@ -53,8 +53,6 @@ class Test(Scene):
                  FadeIn(M), FadeIn(CM), FadeIn(BM), FadeIn(EM),
                  FadeIn(IK), FadeIn(CI), FadeIn(CK),
                  FadeIn(MD), FadeIn(MA))
-        
-        self.play(MoveAlongPath(C, circle))
-        
+                
         
         self.wait(2)
