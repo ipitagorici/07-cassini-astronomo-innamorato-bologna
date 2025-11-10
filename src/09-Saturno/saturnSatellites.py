@@ -1,6 +1,7 @@
 from manim import *
 import numpy as np
 
+# Do not expect me to put comments in a 300 lines animation after not working on it for months
 
 class Satellites(ThreeDScene):
     def construct(self):

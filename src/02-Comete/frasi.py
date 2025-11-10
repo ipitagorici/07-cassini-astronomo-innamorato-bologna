@@ -1,26 +1,125 @@
 from manim import *
+from PIL import Image
 
-# class Scene(Scene):
-#     def construct(self):
-#         frase = Tex("")
-#         self.play(Write(frase))
 
-class Shakespeare(Scene):
+class StellaRossaSinistra(Scene):
     def construct(self):
-        frase = Tex("When beggars die, there are no comets seen\\\\the heavens themselves blaze forth the death of princes")
+        frase = Tex("Come la stella rossa\\\\" +
+                    "fiammeggiante fa\\\\"+
+                    "pestilenza",
+                    tex_environment="flushright",
+                    font_size=40,
+                    color=YELLOW)
+        frase.to_edge(LEFT).shift(UR)
+        
+        bg = ImageMobject("src/assets/sfondoSpazio.jpg")
+        bg.set_resampling_algorithm(Image.Resampling.BICUBIC)
+        bg.scale_to_fit_width(config.frame_width)
+        self.add(bg)
+        
+        self.play(Write(frase))
+        
+class StellaRossaDestra(Scene):
+    def construct(self):
+        frase = Tex("che dalla sua chioma\\\\"+ 
+                    "calare malattie\\\\"+
+                    "e guerra\\\\" +
+                    "(Omero)",
+                    tex_environment="flushleft",
+                    font_size=35,
+                    color=YELLOW)
+        frase.to_edge(RIGHT)
+        
+        bg = ImageMobject("src/assets/sfondoSpazio.jpg")
+        bg.set_resampling_algorithm(Image.Resampling.BICUBIC)
+        bg.scale_to_fit_width(config.frame_width)
+        self.add(bg)
+        
+        self.play(Write(frase))
+
+class ShakespeareEnglish(Scene):
+    def construct(self):
+        frase = Tex("When beggars die, there are no comets seen;\\\\the heavens themselves blaze forth the death of princes",
+                    color=YELLOW)
+        
+        bg = ImageMobject("src/assets/sfondoSpazio.jpg")
+        bg.set_resampling_algorithm(Image.Resampling.BICUBIC)
+        bg.scale_to_fit_width(config.frame_width)
+        self.add(bg)
+        
+        self.play(Write(frase))
+        
+class ShakespeareItalian(Scene):
+    def construct(self):
+        frase = Tex("Quando muoiono i pezzenti, non si vedono comete;\\\\i cieli stessi fiammeggiano annunziando la morte dei Principi",
+                    color=YELLOW)
+        
+        bg = ImageMobject("src/assets/sfondoSpazio.jpg")
+        bg.set_resampling_algorithm(Image.Resampling.BICUBIC)
+        bg.scale_to_fit_width(config.frame_width)
+        self.add(bg)
+        
         self.play(Write(frase))
         
 class Vendetta(Scene):
     def construct(self):
-        frase = Tex("Dal movimento de l’humor collerico\\\\gli animi de gli huomini sono incitati alla vendetta")
+        frase = Tex("Dal movimento de l’humor collerico\\\\gli animi de gli huomini sono incitati alla vendetta",
+                    font_size=50,
+                    color=YELLOW)
+        
+        bg = ImageMobject("src/assets/sfondoSpazio.jpg")
+        bg.set_resampling_algorithm(Image.Resampling.BICUBIC)
+        bg.scale_to_fit_width(config.frame_width)
+        self.add(bg)
+        
         self.play(Write(frase))
         
 class Rammarichi(Scene):
     def construct(self):
-        frase = Tex("Gli huomini fuggivano per i boschi, lasciando le case loro,\\\\sì come usciti fuori di senno, non si trovava chi avesse cura de gli animali,\\\\né chi lavorasse le terre, solo morti si vedevano,\\\\solo ramarichi, stridi e pianti s’udivano")
+        frase = Tex("Gli huomini fuggivano per i boschi, lasciando le case loro,\\\\" +
+                    "sì come usciti fuori di senno, non si trovava chi avesse cura de gli animali,\\\\" +
+                    "né chi lavorasse le terre, solo morti si vedevano,\\\\" +
+                    "solo ramarichi, stridi e pianti s’udivano",
+                    font_size=40,
+                    color=YELLOW)
+        
+        bg = ImageMobject("src/assets/sfondoSpazio.jpg")
+        bg.set_resampling_algorithm(Image.Resampling.BICUBIC)
+        bg.scale_to_fit_width(config.frame_width)
+        self.add(bg)
+        
         self.play(Write(frase))
         
 class Paternoster(Scene):
     def construct(self):
-        frase = Tex("Venne un certo liquore nell’aere come fuoco,\\\\e parea che la terra ardesse, e stette così per lo spazio del dire di due Paternoster;\\\\dietro a questo venne un tempo molto scuro e tenebroso con un tuono grandissimo,\\\\il quale durò fermamente per dire di tre Paternoster")
+        frase = Tex("Venne un certo liquore nell’aere come fuoco,\\\\" +
+                    "e parea che la terra ardesse, e stette così per lo spazio del dire di due Paternoster;\\\\" +
+                    "dietro a questo venne un tempo molto scuro e tenebroso con un tuono grandissimo,\\\\" +
+                    "il quale durò fermamente per dire di tre Paternoster",
+                    font_size=40,
+                    color=YELLOW)
+        
+        bg = ImageMobject("src/assets/sfondoSpazio.jpg")
+        bg.set_resampling_algorithm(Image.Resampling.BICUBIC)
+        bg.scale_to_fit_width(config.frame_width)
+        self.add(bg)
+        
         self.play(Write(frase))
+        
+class StragiAllaCristianita(Scene):
+    def construct(self):
+        frase = Tex("Gran stragi alla Cristianità, onde papa Callisto III ordinò,\\\\"+
+                    "ch’in tutte le città nel mezzo giorni si suonassero le campane,\\\\"+
+                    "acciò in quel tempo i fedeli facessero orazioni per placare l’ira del cielo",
+                    font_size=40,
+                    color=YELLOW)
+
+        bg = ImageMobject("src/assets/sfondoSpazio.jpg")
+        bg.set_resampling_algorithm(Image.Resampling.BICUBIC)
+        bg.scale_to_fit_width(config.frame_width)
+        self.add(bg)
+
+        self.play(Write(frase))
+
+
+
