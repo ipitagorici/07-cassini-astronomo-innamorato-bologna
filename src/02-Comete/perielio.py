@@ -31,8 +31,6 @@ class Perielio(Scene):
         E = always_redraw(lambda: Dot(radius=0.1)\
             .move_to([C.get_x()+1.55, C.get_y()+0.7, 0]))
         
-        M = Dot([FC.get_end()[0], FC.get_end()[1]-1.25, 0])
-
         
         
         #############
@@ -45,6 +43,9 @@ class Perielio(Scene):
         FG = always_redraw(lambda: Line(F, G))
         FH = always_redraw(lambda: Line(F, H))
         FE = always_redraw(lambda: Line(F, E))
+        
+        M = Dot([FC.get_end()[0], FC.get_end()[1]-1.25, 0])
+
         
         BC = Line(FB.get_end(), FC.get_end())
         EC = Line(FE.get_end(), FC.get_end())

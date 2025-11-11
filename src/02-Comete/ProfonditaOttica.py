@@ -2,6 +2,12 @@ from manim import *
 import random
 
 class ProfonditaOttica(MovingCameraScene):
+    def show_random_objects_creation(collection_of_mobjects):
+        
+        random_creation = AnimationGroup(
+            
+        )
+    
     def construct(self):
         ########################
         ### SATURN AND ROCKS ###
