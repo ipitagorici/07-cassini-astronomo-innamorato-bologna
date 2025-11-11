@@ -2,40 +2,34 @@ from manim import *
 from PIL import Image
 
 
-class StellaRossaSinistra(Scene):
+class StellaRossa(Scene):
     def construct(self):
-        frase = Tex("Come la stella rossa\\\\" +
-                    "fiammeggiante fa\\\\"+
-                    "pestilenza",
-                    tex_environment="flushright",
-                    font_size=40,
-                    color=YELLOW)
-        frase.to_edge(LEFT).shift(UR)
+        frase_sinistra = Tex("Come la stella rossa\\\\" +
+                            "fiammeggiante fa\\\\"+
+                            "pestilenza",
+                            tex_environment="flushright",
+                            font_size=40,
+                            color=YELLOW)
+        frase_sinistra.to_edge(LEFT).shift(UR)
+        frase_destra = Tex("che dalla sua chioma\\\\"+ 
+                            "calare malattie\\\\"+
+                            "e guerra\\\\" +
+                            "(Omero)",
+                            tex_environment="flushleft",
+                            font_size=35,
+                            color=YELLOW)
+        frase_destra.to_edge(RIGHT).shift(UL)
+        
+        elmo = ImageMobject("src/assets/elmoPiumaRossa.png")\
+            .scale(1.3)
         
         bg = ImageMobject("src/assets/sfondoSpazio.jpg")
         bg.set_resampling_algorithm(Image.Resampling.BICUBIC)
         bg.scale_to_fit_width(config.frame_width)
         self.add(bg)
         
-        self.play(Write(frase))
-        
-class StellaRossaDestra(Scene):
-    def construct(self):
-        frase = Tex("che dalla sua chioma\\\\"+ 
-                    "calare malattie\\\\"+
-                    "e guerra\\\\" +
-                    "(Omero)",
-                    tex_environment="flushleft",
-                    font_size=35,
-                    color=YELLOW)
-        frase.to_edge(RIGHT)
-        
-        bg = ImageMobject("src/assets/sfondoSpazio.jpg")
-        bg.set_resampling_algorithm(Image.Resampling.BICUBIC)
-        bg.scale_to_fit_width(config.frame_width)
-        self.add(bg)
-        
-        self.play(Write(frase))
+        self.play(FadeIn(elmo))
+        self.play(Write(frase_sinistra), Write(frase_destra))
 
 class ShakespeareEnglish(Scene):
     def construct(self):
