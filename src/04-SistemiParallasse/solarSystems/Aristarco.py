@@ -1,8 +1,9 @@
 from manim import *
 import math  # Not strictly needed here, but in case
 
-class SolarSystemAristarco(Scene):
+class SolarSystemAristarco(MovingCameraScene):
     def construct(self):
+        nome = Tex("Copernico").to_corner(UL)
         distance = 0.45
         earth = Dot(
             (0, -3.5, 0),
@@ -66,14 +67,7 @@ class SolarSystemAristarco(Scene):
                 .shift(RIGHT* planets[i].radius)\
                 .shift(RIGHT* (planets_names[i].width / 2))\
                 .shift(RIGHT* 0.5)
-        for i in range(0, len(planets)):
-            self.play(FadeIn(planets[i]), Write(planets_names[i]), run_time=0.5)
-        moon_orbit = Circle(planets[3].get_center()[1] - planets[4].get_center()[1], color=BLACK)\
-            .rotate(-90*DEGREES)\
-            .add_updater(lambda x: x.move_to(planets[3].get_center()))
-        self.play(FadeOut(planets_names))
-        self.add(moon_orbit)
-
+                
         # Add fading trails for planets (excluding sun) using TracedPath
         trails = []
         # For a trail that fades/disappears after ~1 second, use dissipating_time=1.0
@@ -89,6 +83,26 @@ class SolarSystemAristarco(Scene):
             )
             self.add(trail)
             trails.append(trail)
+                        
+          
+        self.play(Write(nome))
+          
+                
+        for i in range(0, len(planets)):
+            self.play(FadeIn(planets[i]), Write(planets_names[i]), run_time=0.5)
+        moon_orbit = Circle(planets[3].get_center()[1] - planets[4].get_center()[1], color=BLACK)\
+            .rotate(-90*DEGREES)\
+            .add_updater(lambda x: x.move_to(planets[3].get_center()))
+        self.play(FadeOut(planets_names))
+        self.add(moon_orbit)
+
+
+
+        self.play(FadeOut(nome))
+        self.play(self.camera.frame.animate.set_width(config.frame_width*2))
+        self.play(self.camera.frame.animate.shift(DOWN*3))
+    
+
 
         planets_rotating = AnimationGroup (
             Rotate(planets[1], TAU*6, about_point=planets[0].get_center(), rate_func=linear, run_time=5),

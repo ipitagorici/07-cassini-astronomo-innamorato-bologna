@@ -2,8 +2,9 @@ from manim import *
 import math # Not strictly needed here, but in case
 import numpy as np
 
-class SolarSystemEraclide(Scene):
+class SolarSystemEraclide(MovingCameraScene):
     def construct(self):
+        nome = Tex("Eraclide").to_corner(UL)
         distance = 0.45
         earth = Dot(
             (0, -3.5, 0),
@@ -67,6 +68,9 @@ class SolarSystemEraclide(Scene):
                 .shift(RIGHT* planets[i].radius)\
                 .shift(RIGHT* (planets_names[i].width / 2))\
                 .shift(RIGHT* 0.5)
+                
+        self.play(FadeIn(nome))
+                
         for i in range(0, len(planets)):
             self.play(FadeIn(planets[i]), Write(planets_names[i]), run_time=0.5)
         # Updaters for Venus and Mercury
@@ -121,6 +125,14 @@ class SolarSystemEraclide(Scene):
             trails.append(trail)
         mercury_anim = mercury_angle.animate.set_value(initial_angle_mercury + TAU).set_run_time(5).set_rate_func(linear)
         venus_anim = venus_angle.animate.set_value(initial_angle_venus + TAU).set_run_time(5).set_rate_func(linear)
+        
+        
+        self.play(FadeOut(nome))
+        self.play(self.camera.frame.animate.set_width(config.frame_width*2))
+        self.play(self.camera.frame.animate.shift(DOWN*3))
+        
+        
+        
         planets_rotating = AnimationGroup(
             Rotate(planets[1], TAU*5, about_point=planets[0].get_center(), rate_func=linear, run_time=5),
             mercury_anim,

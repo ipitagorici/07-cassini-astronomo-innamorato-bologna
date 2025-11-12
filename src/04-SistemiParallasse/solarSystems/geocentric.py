@@ -1,7 +1,9 @@
 from manim import *
 
-class SolarSystemGeocentric(Scene):
+class SolarSystemGeocentric(MovingCameraScene):
     def construct(self):
+        nome = Tex("Geocentrico").to_corner(UL)
+        
         distance = 0.45
         earth = Dot(
             (0, -3.5, 0),
@@ -65,6 +67,9 @@ class SolarSystemGeocentric(Scene):
                 .shift(RIGHT* planets[i].radius)\
                 .shift(RIGHT* (planets_names[i].length_over_dim(0)/2))\
                 .shift(RIGHT* 0.5)
+                
+        self.play(FadeIn(nome))
+                
         for i in range(0, len(planets)):
             self.play(FadeIn(planets[i]), Write(planets_names[i]), run_time=0.5)
         mercury_orbit = Circle(planets[4].get_center()[1] - planets[2].get_center()[1], color=BLACK)\
@@ -83,6 +88,14 @@ class SolarSystemGeocentric(Scene):
             trace = TracedPath(lambda p=planet: p.get_center(), stroke_color=planet.color, stroke_width=2, dissipating_time=0.5)
             traces.add(trace)
         self.add(traces)
+        
+        
+        self.play(FadeOut(nome))
+        self.play(self.camera.frame.animate.set_width(config.frame_width*2))
+        self.play(self.camera.frame.animate.shift(DOWN*3))
+        
+        
+        
         planets_rotating = AnimationGroup(
             Rotate(planets[1], TAU*7, about_point=planets[0].get_center(), rate_func=linear, run_time=5),
             Rotate(planets[2], TAU*6, about_point=planets[0].get_center(), rate_func=linear, run_time=5),

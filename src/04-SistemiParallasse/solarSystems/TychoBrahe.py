@@ -3,8 +3,10 @@ from manim.utils.space_ops import rotate_vector
 import numpy as np
 from math import floor
 
-class SolarSystemTychoBrahe(Scene):
+class SolarSystemTychoBrahe(MovingCameraScene):
     def construct(self):
+        nome = Tex("Tycho Brahe").to_corner(UL)
+        
         distance = 0.45
         T = 5  # base rotation duration in seconds
         speed_factor = 3.0  # Set to three as requested
@@ -38,6 +40,8 @@ class SolarSystemTychoBrahe(Scene):
         # === Position labels ===
         for i, name in enumerate(planet_names):
             name.next_to(planets[i], RIGHT)
+
+        self.play(FadeIn(nome))
 
         # === Show planets and labels ===
         for i in range(len(planets)):
@@ -161,6 +165,14 @@ class SolarSystemTychoBrahe(Scene):
             trail = TracedPath(planet.get_center, stroke_color=planet.color, stroke_width=3, dissipating_time=0.5)
             trails.append(trail)
             self.add(trail)
+
+
+
+        self.play(FadeOut(nome))
+        self.play(self.camera.frame.animate.set_width(config.frame_width*2))
+        self.play(self.camera.frame.animate.shift(DOWN*3))
+        
+
 
         # === Animation ===
         self.play(t.animate.set_value(max_align_t), run_time=max_align_t, rate_func=linear)
