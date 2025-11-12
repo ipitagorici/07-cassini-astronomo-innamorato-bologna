@@ -26,15 +26,17 @@ class SeIlSarsi(Scene):
 
 class HaecInsomni(Scene):
     def construct(self):
-        frase = Tex("\"Haec insomni studio per gelidas noctes Coelitus deducta\"\\\\"+
-                    "Queste cose tratte dal cielo con studio insonne nel gelo delle notti\\\\"+
-                    "(Cassini)",
+        fraseLatino = Tex("\"Haec insomni studio\\\\per gelidas noctes Coelitus deducta\" \\\\",
                     color=YELLOW,
-                    font_size=45)
+                    font_size=60).shift(UP*1.5)
+        fraseItaliano = Tex("Queste cose tratte dal cielo\\\\con studio insonne nel gelo delle notti\\\\"+
+                            "(Cassini)",
+                    color=YELLOW,
+                    font_size=60).shift(DOWN*2)
 
         bg = ImageMobject("src/assets/sfondoSpazio.jpg")
         bg.set_resampling_algorithm(Image.Resampling.BICUBIC)
         bg.scale_to_fit_width(config.frame_width)
         self.add(bg)
 
-        self.play(Write(frase))
+        self.play(Write(fraseLatino), Write(fraseItaliano))

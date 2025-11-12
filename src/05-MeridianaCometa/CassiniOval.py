@@ -9,7 +9,7 @@ class Cassiniana(MovingCameraScene):
         ###########
         
         title = Tex("Cassiniana\\\\(Ovale di Cassini)").to_edge(UP)
-        lemniscate = Tex("Lemniscata\\\\di Bernouli")
+        lemniscate = Tex("Lemniscata\\\\di Bernoulli")
 
 
 

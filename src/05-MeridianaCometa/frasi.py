@@ -5,7 +5,7 @@ class vehementer(Scene):
     def construct(self):
         frase = Tex("vehementer me perturbarunt",
                     color=YELLOW,
-                    font_size=75)
+                    font_size=90)
         
         bg = ImageMobject("src/assets/sfondoSpazio.jpg")
         bg.set_resampling_algorithm(Image.Resampling.BICUBIC)
