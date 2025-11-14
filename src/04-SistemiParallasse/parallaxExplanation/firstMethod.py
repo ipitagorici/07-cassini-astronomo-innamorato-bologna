@@ -24,8 +24,8 @@ class FirstMethod(Scene):
             .next_to(legenda_observer, DOWN)\
             .align_to(legenda_observer, RIGHT)
             
-        parallax_original = ImageMobject("src/assets/parallasse_2_modi.jpg")\
-            .scale(0.4)\
+        parallax_original = ImageMobject("src/assets/parallasse_metodo_1.jpg")\
+            .scale(0.7)\
 
             
             
@@ -125,7 +125,7 @@ class FirstMethod(Scene):
             
         # FOURTH FRAME OBJECTS
         M = Dot(L.get_center())\
-            .shift(LEFT*0.35)\
+            .shift(LEFT*0.345)\
             .shift(UP*0.7)
         M_label = Tex("M")\
             .next_to(M, RIGHT)
@@ -141,15 +141,11 @@ class FirstMethod(Scene):
         self.play(FadeIn(parallax_original))
         self.wait()
         
-        self.play(parallax_original.animate.scale(0.3))
-        self.play(parallax_original.animate.next_to(legenda_parallax_2, DOWN))
+        self.play(parallax_original.animate.scale(0.4))
+        self.play(parallax_original.animate\
+            .next_to(legenda_parallax_2, DOWN))
+        self.play(parallax_original.animate.shift(RIGHT*0.5))
         
-        current_method_indicator = Dot(parallax_original.get_center())\
-            .shift(LEFT)\
-            .scale(5.5)
-        self.play(Circumscribe(current_method_indicator, shape=Circle))
-        
-        self.wait()
         
         # FIRST FRAME
         self.play(Write(legenda_observer))

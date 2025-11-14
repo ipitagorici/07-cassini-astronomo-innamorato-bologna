@@ -1,5 +1,5 @@
 from manim import *
-import math  # Not strictly needed here, but in case
+import math # Not strictly needed here, but in case
 
 class SolarSystemAristarco(MovingCameraScene):
     def construct(self):
@@ -67,7 +67,6 @@ class SolarSystemAristarco(MovingCameraScene):
                 .shift(RIGHT* planets[i].radius)\
                 .shift(RIGHT* (planets_names[i].width / 2))\
                 .shift(RIGHT* 0.5)
-                
         # Add fading trails for planets (excluding sun) using TracedPath
         trails = []
         # For a trail that fades/disappears after ~1 second, use dissipating_time=1.0
@@ -83,11 +82,7 @@ class SolarSystemAristarco(MovingCameraScene):
             )
             self.add(trail)
             trails.append(trail)
-                        
-          
         self.play(Write(nome))
-          
-                
         for i in range(0, len(planets)):
             self.play(FadeIn(planets[i]), Write(planets_names[i]), run_time=0.5)
         moon_orbit = Circle(planets[3].get_center()[1] - planets[4].get_center()[1], color=BLACK)\
@@ -95,15 +90,8 @@ class SolarSystemAristarco(MovingCameraScene):
             .add_updater(lambda x: x.move_to(planets[3].get_center()))
         self.play(FadeOut(planets_names))
         self.add(moon_orbit)
-
-
-
-        self.play(FadeOut(nome))
         self.play(self.camera.frame.animate.set_width(config.frame_width*2))
         self.play(self.camera.frame.animate.shift(DOWN*3))
-    
-
-
         planets_rotating = AnimationGroup (
             Rotate(planets[1], TAU*6, about_point=planets[0].get_center(), rate_func=linear, run_time=5),
             Rotate(planets[2], TAU*5, about_point=planets[0].get_center(), rate_func=linear, run_time=5),
@@ -117,9 +105,26 @@ class SolarSystemAristarco(MovingCameraScene):
             lag_ratio=0.1
         )
         self.play(planets_rotating)
-
         # Optional: Remove trails after animation
         self.play(*[FadeOut(trail) for trail in trails])
-
+        self.play(FadeOut(moon_orbit))
         self.wait(2)
         
+        # Create and fade in orbits for all orbiting bodies at the end
+        orbits = VGroup()
+        sun_center = planets[0].get_center()
+        orbiting_planets = [planets[1], planets[2], planets[3], planets[5], planets[6], planets[7]]
+        for p in orbiting_planets:
+            r = abs(p.get_y() - sun_center[1])
+            orbit = Circle(radius=r, color=p.color, stroke_width=2)
+            orbit.move_to(sun_center)
+            orbits.add(orbit)
+        
+        # Add moon's orbit around Earth
+        moon_radius = abs(planets[4].get_y() - planets[3].get_y())
+        moon_final_orbit = Circle(radius=moon_radius, color=planets[4].color, stroke_width=2)
+        moon_final_orbit.add_updater(lambda m: m.move_to(planets[3].get_center()))
+        orbits.add(moon_final_orbit)
+        
+        self.play(FadeIn(orbits), run_time=2)
+        self.wait(2)

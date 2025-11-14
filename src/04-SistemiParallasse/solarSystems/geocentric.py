@@ -2,8 +2,7 @@ from manim import *
 
 class SolarSystemGeocentric(MovingCameraScene):
     def construct(self):
-        nome = Tex("Geocentrico").to_corner(UL)
-        
+        nome = Tex("Tolomeo").to_corner(UL)
         distance = 0.45
         earth = Dot(
             (0, -3.5, 0),
@@ -61,41 +60,29 @@ class SolarSystemGeocentric(MovingCameraScene):
             else:
                 ignored_distance = planets[i].radius + planets[i-1].radius
                 planets[i].move_to((0, planets[i-1].get_center()[1] + distance + ignored_distance, 0))
+        
+        # Compute orbit radii for planets orbiting Earth (excluding Earth itself)
+        orbit_radii = [abs(p.get_y() - planets[0].get_y()) for p in planets[1:]]
+        
         for i in range(0, len(planets_names)):
             planets_names[i]\
                 .move_to(planets[i].get_center())\
                 .shift(RIGHT* planets[i].radius)\
                 .shift(RIGHT* (planets_names[i].length_over_dim(0)/2))\
                 .shift(RIGHT* 0.5)
-                
         self.play(FadeIn(nome))
-                
         for i in range(0, len(planets)):
             self.play(FadeIn(planets[i]), Write(planets_names[i]), run_time=0.5)
-        mercury_orbit = Circle(planets[4].get_center()[1] - planets[2].get_center()[1], color=BLACK)\
-            .rotate(-90*DEGREES)\
-            .add_updater(lambda x: x.move_to(planets[4].get_center()))\
-            .move_to(planets[4].get_center())
-        venus_orbit = Circle(planets[4].get_center()[1] - planets[3].get_center()[1], color=BLACK)\
-            .rotate(-90*DEGREES)\
-            .add_updater(lambda x: x.move_to(planets[4].get_center()))\
-            .move_to(planets[4].get_center())
         self.play(FadeOut(planets_names))
-        self.add(mercury_orbit, venus_orbit)
+        
         # Add TracedPaths for all planets
         traces = VGroup()
         for planet in planets:
             trace = TracedPath(lambda p=planet: p.get_center(), stroke_color=planet.color, stroke_width=2, dissipating_time=0.5)
             traces.add(trace)
         self.add(traces)
-        
-        
-        self.play(FadeOut(nome))
         self.play(self.camera.frame.animate.set_width(config.frame_width*2))
         self.play(self.camera.frame.animate.shift(DOWN*3))
-        
-        
-        
         planets_rotating = AnimationGroup(
             Rotate(planets[1], TAU*7, about_point=planets[0].get_center(), rate_func=linear, run_time=5),
             Rotate(planets[2], TAU*6, about_point=planets[0].get_center(), rate_func=linear, run_time=5),
@@ -108,4 +95,14 @@ class SolarSystemGeocentric(MovingCameraScene):
         )
         self.play(planets_rotating)
         self.play(FadeOut(traces), run_time=0.5)
+        self.wait(2)
+        
+        # Create and fade in orbits for all orbiting bodies at the end
+        orbits = VGroup()
+        earth_center = planets[0].get_center()
+        for i, r in enumerate(orbit_radii):
+            orbit = Circle(radius=r, color=planets[i+1].color, stroke_width=2)
+            orbit.move_to(earth_center)
+            orbits.add(orbit)
+        self.play(FadeIn(orbits), run_time=2)
         self.wait(2)

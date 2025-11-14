@@ -3,7 +3,7 @@ from PIL import Image
 
 class FormulaProfOttica(Scene):
     def construct(self):
-        formula = MathTex(r"\log\tfrac{Fi}{Ft}",
+        formula = MathTex(r"\log\tfrac{F_i}{F_t}",
                           color=YELLOW,
                           font_size=200)
         

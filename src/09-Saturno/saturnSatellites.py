@@ -196,8 +196,15 @@ class Satellites(ThreeDScene):
         treble_clef_tex.move_to(pentagram[2].get_start())
         pentagram.add(treble_clef_tex)
         
+        pentagram_2 = pentagram.copy()\
+            .next_to(pentagram, DOWN)
+        pentagram_3 = pentagram.copy()\
+            .next_to(pentagram_2, DOWN)
+        pentagrams = VGroup(pentagram, pentagram_2, pentagram_3)
+            
+        
         self.play(
-            Transform(axes, pentagram, replace_mobject_with_target_in_scene=True),
+            Transform(axes, pentagrams, replace_mobject_with_target_in_scene=True),
             self.camera.phi_tracker.animate.set_value(0 * DEGREES))
         
         satellites_notes_dots = VGroup(

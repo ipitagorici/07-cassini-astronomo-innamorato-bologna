@@ -68,11 +68,20 @@ class SolarSystemEraclide(MovingCameraScene):
                 .shift(RIGHT* planets[i].radius)\
                 .shift(RIGHT* (planets_names[i].width / 2))\
                 .shift(RIGHT* 0.5)
-                
         self.play(FadeIn(nome))
-                
         for i in range(0, len(planets)):
             self.play(FadeIn(planets[i]), Write(planets_names[i]), run_time=0.5)
+        
+        # Animate shift of inner system down to prevent orbit overlap
+        delta = 1.0
+        inner_planets = planets[:5]
+        inner_names = planets_names[:5]
+        self.play(
+            *[p.animate.shift(DOWN * delta) for p in inner_planets],
+            *[n.animate.shift(DOWN * delta) for n in inner_names],
+            run_time=2
+        )
+        
         # Updaters for Venus and Mercury
         rel_pos_venus = planets[2].get_center() - planets[4].get_center()
         radius_venus = np.linalg.norm(rel_pos_venus)
@@ -125,14 +134,8 @@ class SolarSystemEraclide(MovingCameraScene):
             trails.append(trail)
         mercury_anim = mercury_angle.animate.set_value(initial_angle_mercury + TAU).set_run_time(5).set_rate_func(linear)
         venus_anim = venus_angle.animate.set_value(initial_angle_venus + TAU).set_run_time(5).set_rate_func(linear)
-        
-        
-        self.play(FadeOut(nome))
         self.play(self.camera.frame.animate.set_width(config.frame_width*2))
         self.play(self.camera.frame.animate.shift(DOWN*3))
-        
-        
-        
         planets_rotating = AnimationGroup(
             Rotate(planets[1], TAU*5, about_point=planets[0].get_center(), rate_func=linear, run_time=5),
             mercury_anim,
@@ -146,4 +149,44 @@ class SolarSystemEraclide(MovingCameraScene):
         self.play(planets_rotating)
         # Optional: Remove trails after animation
         self.play(*[FadeOut(trail) for trail in trails])
+        self.play(FadeOut(moon_orbit))
+        self.wait(2)
+       
+        # Create and fade in orbits for all orbiting bodies at the end
+        orbits = VGroup()
+        earth_center = planets[0].get_center()
+        # Moon orbit around Earth
+        moon_r = np.linalg.norm(planets[1].get_center() - earth_center)
+        moon_final_orbit = Circle(radius=moon_r, color=planets[1].color, stroke_width=2)
+        moon_final_orbit.move_to(earth_center)
+        orbits.add(moon_final_orbit)
+        # Sun orbit around Earth
+        sun_r = np.linalg.norm(planets[4].get_center() - earth_center)
+        sun_orbit = Circle(radius=sun_r, color=planets[4].color, stroke_width=2)
+        sun_orbit.move_to(earth_center)
+        orbits.add(sun_orbit)
+        # Mars orbit around Earth
+        mars_r = np.linalg.norm(planets[5].get_center() - earth_center)
+        mars_orbit = Circle(radius=mars_r, color=planets[5].color, stroke_width=2)
+        mars_orbit.move_to(earth_center)
+        orbits.add(mars_orbit)
+        # Jupiter orbit around Earth
+        jup_r = np.linalg.norm(planets[6].get_center() - earth_center)
+        jup_orbit = Circle(radius=jup_r, color=planets[6].color, stroke_width=2)
+        jup_orbit.move_to(earth_center)
+        orbits.add(jup_orbit)
+        # Saturn orbit around Earth
+        sat_r = np.linalg.norm(planets[7].get_center() - earth_center)
+        sat_orbit = Circle(radius=sat_r, color=planets[7].color, stroke_width=2)
+        sat_orbit.move_to(earth_center)
+        orbits.add(sat_orbit)
+        # Venus orbit around Sun
+        venus_orbit = Circle(radius=radius_venus, color=planets[2].color, stroke_width=2)
+        venus_orbit.add_updater(lambda v: v.move_to(planets[4].get_center()))
+        orbits.add(venus_orbit)
+        # Mercury orbit around Sun
+        mercury_orbit = Circle(radius=radius_mercury, color=planets[3].color, stroke_width=2)
+        mercury_orbit.add_updater(lambda m: m.move_to(planets[4].get_center()))
+        orbits.add(mercury_orbit)
+        self.play(FadeIn(orbits), run_time=2)
         self.wait(2)

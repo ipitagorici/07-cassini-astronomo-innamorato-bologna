@@ -20,8 +20,8 @@ class SecondMethod(Scene):
             .next_to(legenda_distance_EK, DOWN)\
             .align_to(legenda_observers, RIGHT)
             
-        parallax_original = ImageMobject("src/assets/parallasse_2_modi.jpg")\
-            .scale(0.4)\
+        parallax_original = ImageMobject("src/assets/parallasse_metodo_2.jpg")\
+            .scale(0.7)\
         
         
         
@@ -133,16 +133,9 @@ class SecondMethod(Scene):
         self.play(FadeIn(parallax_original))
         self.wait()
         
-        self.play(parallax_original.animate.scale(0.3))
+        self.play(parallax_original.animate.scale(0.4))
         self.play(parallax_original.animate.next_to(legenda_parallax_3, DOWN))
-        
-        current_method_indicator = Dot(parallax_original.get_center())\
-            .shift(RIGHT)\
-            .scale(5.5)
-        self.play(Circumscribe(current_method_indicator, shape=Circle))
-        
-        self.wait()
-        
+
         
         # FIFTH FRAME
         self.play(Write(legenda_comet), Write(legenda_observers))
